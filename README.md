@@ -1,4 +1,6 @@
-# SimpleCrypto
+# SimpleCrypto   
+Requirements: Python 3.8+   
+
 A Simple Python library to compute basic ciphers and encodings from the command line.   
 This is an ongoing project that is being built solely for the experience.
 
