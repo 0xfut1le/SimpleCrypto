@@ -24,11 +24,8 @@ parser.add_argument('-e', action='store',
     choices=valid_ciphers,
     dest='cipher_type',
     required=True,
-    metavar='',
-    help='Choices: [ AtBash, Affine, Caesar, ' \
-        'ColTransposition, Keyword, ' \
-        'Railfence, Base16, Base32, ' \
-        'Base64, Base85 ]')
+    help='Supported encryptions / encodings to apply to message.'
+)
 parser.add_argument('--key', dest='key',
     nargs='+',
     default=None,
