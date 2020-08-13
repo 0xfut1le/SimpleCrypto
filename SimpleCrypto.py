@@ -24,18 +24,20 @@ parser.add_argument('-e', action='store',
     choices=valid_ciphers,
     dest='cipher_type',
     required=True,
-    help='Supported encryptions / encodings to apply to message.'
+    help='Cipher / Encoding to process message with.'
 )
 parser.add_argument('--key', dest='key',
     nargs='+',
     default=None,
     type=int,
-    help='Used to encrypt / decrypt messages')
+    help='Used to encrypt / decrypt messages'
+)
 parser.add_argument('--keyword', dest='keyword',
     nargs=1,
     default=None,
     type=str,
-    help='Used in special cases to encrypt / decrypt messages')
+    help='Used in special cases to encrypt / decrypt messages'
+)
 
 # Set mode to Encrypt or Decrypt message
 mode = parser.add_mutually_exclusive_group(required=True)
@@ -46,10 +48,12 @@ mode.add_argument('--decrypt', action='store_false', dest='encrypt')
 message_input = parser.add_mutually_exclusive_group(required=True)
 message_input.add_argument('-m', '--message', action='store', 
     help='Load message from CLI',
-    dest='message')
+    dest='message'
+)
 message_input.add_argument('-f', '--file', 
     action='store', help='Load message from file. Takes file path as argument.',
-    dest='message_file')
+    dest='message_file'
+)
 
 def load_from_file(filepath):
     if not os.path.isfile(filepath):
@@ -92,7 +96,10 @@ def main():
             parser.error('Affine ciphers require two key values. Delimit each key with a space.')
         print(cipher_prefix + str(Affine(message=message, key_1=key[0], key_2=key[1], encrypt=mode)))
     elif cipher_type == 'Caesar':
-        print(cipher_prefix + str(CaesarCipher(message=message, offset=key[0], encode=mode)))
+        if mode:
+            print(cipher_prefix + str(CaesarCipher(message=message, offset=key[0], encode=mode).encoded))
+        else:
+            print(cipher_prefix + str(CaesarCipher(message=message, offset=key[0], encode=mode).decoded))
     elif cipher_type == 'ColTransposition':
         if not keyword:
             parser.error('Missing --keyword argument/value!')

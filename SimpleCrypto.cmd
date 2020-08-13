@@ -1,1 +1,1 @@
-@ call python.exe "C:\Path\ToFile\SimpleCrypto\SimpleCrypto.py" %*
+@ call python.exe "<Path To SimpleCrypto Root>" %*
